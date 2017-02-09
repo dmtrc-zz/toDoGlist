@@ -1,68 +1,108 @@
+var app = document.getElementById("app");
+
+//CREATE ELEMENTS
+var panel = document.createElement("div");
+panel.id = "list-container";
+panel.className = "panel panel-default";
+
+var panelHeading = document.createElement("div");
+panelHeading.className = "panel-heading";
+
+var panelBody = document.createElement("div");
+panelBody.className = "panel-body";
+
+var panelHeadingTitle = document.createElement("h1");
+panelHeadingTitle.innerHTML = "ToDo shit";
+
+var formGroup = document.createElement("div");
+formGroup.className = "form-group";
+
+var inputGroup = document.createElement("div");
+inputGroup.className = "input-group";
+
+var input = document.createElement("input");
+input.className = "form-control";
+input.id = "input";
+input.setAttribute('placeholder', 'Please enter some shit here');
+
+var inputGroupBtn = document.createElement("div");
+inputGroupBtn.className = "input-group-btn";
+
+var button = document.createElement("button");
+button.className = "btn btn-success";
+button.id = "addTask";
+button.innerHTML = "Add this shit";
+
+var listGroup = document.createElement("ul");
+listGroup.className = "list-group";
+
+var completeButton = document.createElement("span");
+completeButton.className = "complete-button";
+completeButton.innerHTML = "complete";
+var removeButton = document.createElement("span");
+removeButton.className = "remove-button";
+removeButton.innerHTML = "remove";
+
+panelHeading.appendChild(panelHeadingTitle);
+panelBody.appendChild(formGroup);
+  formGroup.appendChild(inputGroup);
+    inputGroup.appendChild(input);
+    inputGroup.appendChild(inputGroupBtn);
+      inputGroupBtn.appendChild(button);
+panelBody.appendChild(listGroup);
+
+panel.appendChild(panelHeading);
+panel.appendChild(panelBody);
+app.appendChild(panel);
 
 
+
+
+
+
+
+// TODOGLIST WORKS AS FUCK
 window.onload = function(){
 
-  addTask.onclick = function(){
+  button.onclick = function(){
 
-
-    // input elements
-    var input = document.getElementById("input");
-    var inputValue = input.value;
-    var addTask = document.getElementById("addTask");
-
-    // list elements 
-    var list = document.getElementById("list");
-    var taskItem =  document.getElementsByClassName('task-item');
-    var newTask = document.createElement("li");
-    newTask.innerHTML = "<li class='task-item list-group-item'>" + inputValue + "<span class='ctrls'><span class='completeButton'>complete</span><span class='removeButton'>remove</span></span></li>";
-
-    if ( inputValue.length > 0) {
-      input.value="";
-      while (newTask.firstChild) {
-        list.appendChild(newTask.firstChild);
-      }
+    //Add new task
+    if( input.value.length > 0 ){
+      var listItem = document.createElement("li");
+      listItem.className = "task-item list-group-item";
+      listGroup.appendChild(listItem);
+      listItem.appendChild(removeButton);
+      listItem.appendChild(completeButton);
+      listItem.innerHTML += input.value;
+      input.value = "";
     }
 
-    // COMPLETE/REMOVE
-    var completeButton = document.getElementsByClassName("completeButton");
-    var removeButton = document.getElementsByClassName("removeButton");
-
-    var completeTask = function(){
-
-    }
-    var removeTask = function(){
-      elem.remove();
-    }
-
-    // remove
-    removeButton.onclick = function(){
-      removeTask(this);
-    }
-    // complete
+    //Mark task as completed
     completeButton.onclick = function(){
-      console.log(this);
-      var thisTask = this.parentNode.parentNode;
-      for(var i = 0; i < taskItem.length; i++){
-        
-        if (taskItem[i].className.indexOf("completed") == -1){
-          thisTask.className += " completed";
-        } else {
-          thisTask.className = "task-item list-group-item";
-        }
-      }
+      console.log("triceps");
     }
-
-
 
   }
 
 }
 
 
-var task = {
-  "content": "",
-  "isCompleted": false,
-  "isRemoved" : false
-}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 

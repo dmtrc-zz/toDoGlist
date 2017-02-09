@@ -1,0 +1,49 @@
+body{
+  background: #333;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: center;
+}
+#list-container{
+  margin-top: 20px;
+  flex-basis: 600px;
+  max-width: 600px;
+}
+
+
+.completed{
+  text-decoration: line-through;
+  color: #a5a5a5;
+}
+
+
+#list .task-item{
+  display: flex;
+}
+
+.ctrls{
+  margin: -10px;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}
+.ctrls > span{
+  display: inline-block;
+  cursor: pointer;
+  padding: 0 5px;
+}
+
+.ctrls > span+span{margin-left: 5px;}
+.ctrls .glyphicon {
+  line-height: 38px;
+} 
+.completeButton,
+.removeButton{
+  display: inline-block;
+  font-size: 14px;
+  border-radius: 3px;
+  user-select: none;
+  cursor: pointer;
+}
+.completeButton{color: #3c763d;border:1px solid #3c763d;}
+.removeButton{color: #a94442;border:1px solid #a94442}

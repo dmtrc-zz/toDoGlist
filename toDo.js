@@ -36,13 +36,6 @@ button.innerHTML = "Add this shit";
 var listGroup = document.createElement("ul");
 listGroup.className = "list-group";
 
-var completeButton = document.createElement("span");
-completeButton.className = "complete-button";
-completeButton.innerHTML = "complete";
-var removeButton = document.createElement("span");
-removeButton.className = "remove-button";
-removeButton.innerHTML = "remove";
-
 panelHeading.appendChild(panelHeadingTitle);
 panelBody.appendChild(formGroup);
   formGroup.appendChild(inputGroup);
@@ -71,15 +64,30 @@ window.onload = function(){
       var listItem = document.createElement("li");
       listItem.className = "task-item list-group-item";
       listGroup.appendChild(listItem);
+
+      var completeButton = document.createElement("span");
+      completeButton.className = "complete-button";
+      completeButton.innerHTML = "complete";
+      var removeButton = document.createElement("span");
+      removeButton.className = "remove-button";
+      removeButton.innerHTML = "remove";
+
       listItem.appendChild(removeButton);
       listItem.appendChild(completeButton);
-      listItem.innerHTML += input.value;
+      listItem.appendChild(document.createTextNode(input.valuext));
       input.value = "";
     }
 
     //Mark task as completed
     completeButton.onclick = function(){
-      console.log("triceps");
+      if (listItem.className.indexOf("completed") == -1){
+        listItem.className += " completed";
+        this.innerHTML = "undo";
+      } else {
+        listItem.className = "task-item list-group-item";
+        this.innerHTML = "completed";
+      }
+      
     }
 
   }

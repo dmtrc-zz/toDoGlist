@@ -85,7 +85,7 @@ window.onload = function(){
         this.innerHTML = "undo";
       } else {
         listItem.className = "task-item list-group-item";
-        this.innerHTML = "completed";
+        this.innerHTML = "complete";
       }
       
     }

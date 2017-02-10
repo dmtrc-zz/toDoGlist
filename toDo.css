@@ -16,10 +16,11 @@ body{
   color: #a5a5a5;
 }
 
+.removed{
+  display: none;
+}
 
-
-.complete-button,
-.remove-button{
+.item-ctrl{
   padding: 0 5px;
   float: right;
   font-size: 14px;
@@ -27,5 +28,30 @@ body{
   user-select: none;
   cursor: pointer;
 }
+.item-ctrl + .item-ctrl{margin-right: 10px;}
+.edit-button{color: #8a6d3b;border:1px solid #8a6d3b;}
 .complete-button{color: #3c763d;border:1px solid #3c763d;}
-.remove-button{color: #a94442;border:1px solid #a94442;margin-left: 10px;}
+.remove-button{color: #a94442;border:1px solid #a94442;}
+
+
+
+/* Editing task */
+.editing-input{
+  width: 50%;
+  border: 0;
+  display: none;
+}
+
+
+.task-item.editing .editing-input{
+  display: inline-block;
+}
+
+.task-item.editing .text-field{
+  display: none;
+}
+
+
+
+
+

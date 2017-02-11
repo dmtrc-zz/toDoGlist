@@ -118,18 +118,8 @@ window.onload = function(){
         listItem.className += " editing";
         editInput.focus();
         this.innerHTML = "save";
-        console.log("1");
-
-        editButton.onclick = function(){
-          console.log("2");
-          
-          this.innerHTML = "edit";
-          listItem.className = "task-item list-group-item";
-          textField.innerHTML = editInput.value;
-        }
-
       } else {
-        console.log("это вряд ли");
+        textField.innerHTML = editInput.value;
         listItem.className = "task-item list-group-item";
         this.innerHTML = "edit";
       }

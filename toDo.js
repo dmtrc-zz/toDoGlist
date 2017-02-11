@@ -50,15 +50,23 @@ app.appendChild(panel);
 
 
 
-
-
-// TODOGLIST WORKS AS FUCK
 window.onload = function(){
 
   button.onclick = function(){
+    
+    var taskArr = [];
 
-    //ADD NEW TASK
-    if( input.value.length > 0 ){
+    taskArr.push({
+      'content' : input.value,
+      'completed' : false,
+      'removed' : false,
+      'editing' : false
+    });
+
+    input.value = "";
+
+    // BUILD LIST
+    for (var i = 0; i<taskArr.length; i++){
       var listItem = document.createElement("li");
       listItem.className = "task-item list-group-item";
       listGroup.appendChild(listItem);
@@ -81,15 +89,14 @@ window.onload = function(){
       // task editing input
       var editInput = document.createElement("input");
       editInput.className = "editing-input";
-      editInput.value = input.value;
+      editInput.value = taskArr[i].content;
 
       listItem.appendChild(editInput);
       listItem.appendChild(removeButton);
       listItem.appendChild(completeButton);
       listItem.appendChild(editButton);
       listItem.appendChild(textField);
-      textField.appendChild(document.createTextNode(input.value));
-      input.value = "";
+      textField.appendChild(document.createTextNode( taskArr[i].content ));
     }
 
     //Mark task as completed
@@ -128,6 +135,90 @@ window.onload = function(){
 
 }
 
+
+
+
+
+
+
+
+
+
+// TODOGLIST WORKS AS FUCK
+// window.onload = function(){
+
+//   button.onclick = function(){
+
+//     //ADD NEW TASK
+//     if( input.value.length > 0 ){
+//       var listItem = document.createElement("li");
+//       listItem.className = "task-item list-group-item";
+//       listGroup.appendChild(listItem);
+
+//       // task text field
+//       var textField = document.createElement("span");
+//       textField.className = "text-field";
+
+//       // task control buttons
+//       var editButton = document.createElement("span");
+//       editButton.className = "edit-button item-ctrl";
+//       editButton.innerHTML = "edit";
+//       var completeButton = document.createElement("span");
+//       completeButton.className = "complete-button item-ctrl";
+//       completeButton.innerHTML = "complete";
+//       var removeButton = document.createElement("span");
+//       removeButton.className = "remove-button item-ctrl";
+//       removeButton.innerHTML = "remove";
+
+//       // task editing input
+//       var editInput = document.createElement("input");
+//       editInput.className = "editing-input";
+//       editInput.value = input.value;
+
+//       listItem.appendChild(editInput);
+//       listItem.appendChild(removeButton);
+//       listItem.appendChild(completeButton);
+//       listItem.appendChild(editButton);
+//       listItem.appendChild(textField);
+//       textField.appendChild(document.createTextNode(input.value));
+//       input.value = "";
+//     }
+
+//     //Mark task as completed
+//     completeButton.onclick = function(){
+//       if (listItem.className.indexOf("completed") == -1){
+//         listItem.className += " completed";
+//         this.innerHTML = "undo";
+//       } else {
+//         listItem.className = "task-item list-group-item";
+//         this.innerHTML = "complete";
+//       }
+//     }
+
+//     //Remove task
+//     removeButton.onclick = function(){
+//       if (listItem.className.indexOf("removed") == -1){
+//         listItem.className += " removed";
+//       } else {
+//         listItem.className = "task-item list-group-item";
+//       }
+//     }
+
+//     //Edit task
+//     editButton.onclick = function(){
+//       if (listItem.className.indexOf("editing") == -1){
+//         listItem.className += " editing";
+//         editInput.focus();
+//         this.innerHTML = "save";
+//       } else {
+//         textField.innerHTML = editInput.value;
+//         listItem.className = "task-item list-group-item";
+//         this.innerHTML = "edit";
+//       }
+//     }
+//   }
+
+// }
 
 
 

@@ -53,7 +53,7 @@ var taskArr = [];
 window.onload = function(){
 
   button.onclick = function(){
-    if (input.value != 0){
+    if (input.value.length){
       taskArr.push({
         'content' : input.value,
         'completed' : false,
@@ -65,7 +65,6 @@ window.onload = function(){
       input.value = "";
     }
   }
-
 }
 
 
@@ -75,7 +74,18 @@ function remboRender(){
   taskArr.forEach(function(item){
     
     var listItem = document.createElement("li");
-    listItem.className = "task-item list-group-item";
+
+    if (item.removed == false){
+      listItem.className = "task-item list-group-item";
+    } else {
+      listItem.className += " removed";
+    }
+    if (item.completed == false){
+      listItem.className = "task-item list-group-item";
+    } else {
+      listItem.className += " completed";
+    }
+
     listGroup.appendChild(listItem);
 
     // task text field
@@ -90,9 +100,9 @@ function remboRender(){
     completeButton.className = "complete-button item-ctrl";
     completeButton.innerHTML = "complete";
     var removeButton = document.createElement("span");
-    removeButton.className = "remove-button item-ctrl";
     removeButton.innerHTML = "remove";
-
+    removeButton.className = "remove-button item-ctrl";
+    
     // task editing input
     var editInput = document.createElement("input");
     editInput.className = "editing-input";
@@ -116,9 +126,6 @@ function remboRender(){
         listItem.className = "task-item list-group-item";
         this.innerHTML = "complete";
       }
-      console.log(taskArr);
-      // render function!!!!!!!
-
     }
 
     //Remove task
@@ -130,7 +137,6 @@ function remboRender(){
         item.removed = false;
         listItem.className = "task-item list-group-item";
       }
-      // render function!!!!!!!
     }
 
     //Edit task
@@ -147,7 +153,6 @@ function remboRender(){
         this.innerHTML = "edit";
         textField.innerHTML = item.content;
       }
-      console.log(taskArr);
     }
   });
 };

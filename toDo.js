@@ -12,7 +12,7 @@ var panelBody = document.createElement("div");
 panelBody.className = "panel-body";
 
 var panelHeadingTitle = document.createElement("h1");
-panelHeadingTitle.innerHTML = "ToDo shit";
+panelHeadingTitle.innerHTML = "ToDo some shit";
 
 var formGroup = document.createElement("div");
 formGroup.className = "form-group";
@@ -65,17 +65,17 @@ window.onload = function(){
       input.value = "";
     }
   }
+
+  input.onkeydown = function runScript(e) {
+    if (e.keyCode == 13) {
+      button.click();
+    }
+  }
 }
-
-
 
 function remboRender(){
   listGroup.innerHTML = "";
   taskArr.forEach(function(item){
-    console.log("removed :" + item.removed);
-    console.log("completed :" + item.completed);
-    console.log("editing :" + item.editing);
-    console.log(taskArr);
 
     var listItem = document.createElement("li");
 

@@ -72,19 +72,12 @@ window.onload = function(){
 function remboRender(){
   listGroup.innerHTML = "";
   taskArr.forEach(function(item){
-    
-    var listItem = document.createElement("li");
+    console.log("removed :" + item.removed);
+    console.log("completed :" + item.completed);
+    console.log("editing :" + item.editing);
+    console.log(taskArr);
 
-    if (item.removed == false){
-      listItem.className = "task-item list-group-item";
-    } else {
-      listItem.className += " removed";
-    }
-    if (item.completed == false){
-      listItem.className = "task-item list-group-item";
-    } else {
-      listItem.className += " completed";
-    }
+    var listItem = document.createElement("li");
 
     listGroup.appendChild(listItem);
 
@@ -115,44 +108,50 @@ function remboRender(){
     listItem.appendChild(textField);
     textField.appendChild(document.createTextNode( item.content ));
 
-    //Mark task as completed
-    completeButton.onclick = function(){
-      if (item.completed == false){
-        item.completed = true;
-        listItem.className += " completed";
-        this.innerHTML = "undo";
-      } else {
-        item.completed = false;
-        listItem.className = "task-item list-group-item";
-        this.innerHTML = "complete";
-      }
+
+
+    if (!item.removed && !item.completed && !item.editing){
+      listItem.className = "task-item task-item list-group-item";
+    } else if (item.removed){
+      listItem.className += " removed task-item task-item list-group-item";
+    } else if (item.completed){
+      listItem.className += " completed task-item task-item list-group-item";
+      completeButton.innerHTML = "undo";
+    } else if (item.editing){
+      listItem.className += " editing task-item task-item list-group-item";
+      editButton.innerHTML = "save";
+      editInput.focus();
     }
 
     //Remove task
     removeButton.onclick = function(){
       if (item.removed == false){
         item.removed = true;
-        this.parentNode.remove();
       } else {
         item.removed = false;
-        listItem.className = "task-item list-group-item";
       }
+      remboRender();
+    }
+
+    //Mark task as completed
+    completeButton.onclick = function(){
+      if (item.completed == false){
+        item.completed = true;
+      } else {
+        item.completed = false;
+      }
+      remboRender();
     }
 
     //Edit task
     editButton.onclick = function(){
       if (item.editing == false){
         item.editing = true;
-        listItem.className += " editing";
-        editInput.focus();
-        this.innerHTML = "save";
       } else {
         item.editing = false;
         item.content = editInput.value;
-        listItem.className = "task-item list-group-item";
-        this.innerHTML = "edit";
-        textField.innerHTML = item.content;
       }
+      remboRender();
     }
   });
 };

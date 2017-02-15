@@ -66,7 +66,7 @@ window.onload = function(){
     }
   }
 
-  input.onkeydown = function runScript(e) {
+  input.onkeydown = function() {
     if (e.keyCode == 13) {
       button.click();
     }
@@ -113,44 +113,32 @@ function remboRender(){
     if (!item.removed && !item.completed && !item.editing){
       listItem.className = "task-item task-item list-group-item";
     } else if (item.removed){
-      listItem.className += " removed task-item task-item list-group-item";
+      listItem.className = " removed task-item task-item list-group-item";
     } else if (item.completed){
-      listItem.className += " completed task-item task-item list-group-item";
+      listItem.className = " completed task-item task-item list-group-item";
       completeButton.innerHTML = "undo";
     } else if (item.editing){
-      listItem.className += " editing task-item task-item list-group-item";
+      listItem.className = " editing task-item task-item list-group-item";
       editButton.innerHTML = "save";
       editInput.focus();
     }
 
     //Remove task
     removeButton.onclick = function(){
-      if (item.removed == false){
-        item.removed = true;
-      } else {
-        item.removed = false;
-      }
+      item.removed = !item.removed;
       remboRender();
     }
 
     //Mark task as completed
     completeButton.onclick = function(){
-      if (item.completed == false){
-        item.completed = true;
-      } else {
-        item.completed = false;
-      }
+      item.completed = !item.completed;
       remboRender();
     }
 
     //Edit task
     editButton.onclick = function(){
-      if (item.editing == false){
-        item.editing = true;
-      } else {
-        item.editing = false;
-        item.content = editInput.value;
-      }
+      item.editing = !item.editing;
+      item.content = editInput.value;
       remboRender();
     }
   });

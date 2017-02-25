@@ -164,86 +164,110 @@
 
 var app = document.getElementById("app");
 
-var panel = document.createElement("div");
-panel.id = "list-container";
-panel.className = "panel panel-default";
 
-var panelHeading = document.createElement("div");
-panelHeading.className = "panel-heading";
 
-var panelBody = document.createElement("div");
-panelBody.className = "panel-body";
 
-var panelHeadingTitle = document.createElement("h1");
-panelHeadingTitle.innerHTML = "ToDo some shit";
+function List(content){
+  this.content = content;
+  var self = this;
+  this.taskArr = [
+    {
+      'content': content,
+      'completed': false,
+      'removed': false,
+      'editing': false
+    }
+  ];
 
-var formGroup = document.createElement("div");
-formGroup.className = "form-group";
+  console.log(this.taskArr);
 
-var inputGroup = document.createElement("div");
-inputGroup.className = "input-group";
-
-var input = document.createElement("input");
-input.className = "form-control";
-input.id = "input";
-input.setAttribute('placeholder', 'Please enter some shit here');
-
-var inputGroupBtn = document.createElement("div");
-inputGroupBtn.className = "input-group-btn";
-
-var button = document.createElement("button");
-button.className = "btn btn-success";
-button.id = "addTask";
-button.innerHTML = "Add this shit";
-
-var listGroup = document.createElement("ul");
-listGroup.className = "list-group";
-
-panelHeading.appendChild(panelHeadingTitle);
-panelBody.appendChild(formGroup);
-  formGroup.appendChild(inputGroup);
-    inputGroup.appendChild(input);
-    inputGroup.appendChild(inputGroupBtn);
-      inputGroupBtn.appendChild(button);
-panelBody.appendChild(listGroup);
-
-panel.appendChild(panelHeading);
-panel.appendChild(panelBody);
-app.appendChild(panel);
-
-var taskArr = [
-  {
-    'content': 'Some content1',
-    'completed': false,
-    'removed': false,
-    'editing': false
+  this.addItem = function(){
+    console.log(ListItem);
   }
-];
+
+  this.render = function(){
+    var panel = document.createElement("div");
+    panel.id = "list-container";
+    panel.className = "panel panel-default";
+
+    var panelHeading = document.createElement("div");
+    panelHeading.className = "panel-heading";
+
+    var panelBody = document.createElement("div");
+    panelBody.className = "panel-body";
+
+    var panelHeadingTitle = document.createElement("h1");
+    panelHeadingTitle.innerHTML = "ToDo some shit";
+
+    var formGroup = document.createElement("div");
+    formGroup.className = "form-group";
+
+    var inputGroup = document.createElement("div");
+    inputGroup.className = "input-group";
+
+    var input = document.createElement("input");
+    input.className = "form-control";
+    input.id = "input";
+    input.setAttribute('placeholder', 'Please enter some shit here');
+
+    var inputGroupBtn = document.createElement("div");
+    inputGroupBtn.className = "input-group-btn";
+
+    var button = document.createElement("button");
+    button.className = "btn btn-success";
+    button.id = "addTask";
+    button.innerHTML = "Add this shit";
+
+    var listGroup = document.createElement("ul");
+    listGroup.className = "list-group";
+
+    panelHeading.appendChild(panelHeadingTitle);
+    panelBody.appendChild(formGroup);
+      formGroup.appendChild(inputGroup);
+        inputGroup.appendChild(input);
+        inputGroup.appendChild(inputGroupBtn);
+          inputGroupBtn.appendChild(button);
+    panelBody.appendChild(listGroup);
+
+    panel.appendChild(panelHeading);
+    panel.appendChild(panelBody);
+    app.appendChild(panel);
+
+
+    button.onclick = function(){
+      self.addItem();
+    }
+  }
+
+}
 
 function ListItem(object){
   this.object = object;
   var object = this.object;
-
   var self = this;
 
   //Remove task
   this.remove = function(){
+    object.removed = !object.removed;
+    this.render();
   }
   //Mark task as completed
   this.complete = function(){
+    object.completed = !object.completed;
+    this.render();
   }
   //Edit task
   this.edit = function(){
     object.editing = !object.editing;
-    // object.content = editInput.value;
     this.render();
-    console.log('somehow it works');
   }
+  // Render
   this.render = function(){
 
     var listItem = document.createElement("li");
     listItem.className = 'list-group-item';
     listGroup.appendChild(listItem);
+
     // task text field
     var textField = document.createElement("span");
     textField.className = "text-field";
@@ -270,29 +294,34 @@ function ListItem(object){
     listItem.appendChild(textField);
     textField.appendChild(document.createTextNode( object.content ));
 
+    if (!object.removed && !object.completed && !object.editing){
+      listItem.className = "task-item list-group-item";
+    } else if (object.removed){
+      listItem.className = " removed task-item list-group-item";
+    } else if (object.completed){
+      listItem.className = " completed task-item list-group-item";
+      completeButton.innerHTML = "undo";
+    } else if (object.editing){
+      listItem.className = " editing task-item list-group-item";
+      editButton.innerHTML = "save";
+      editInput.focus();
+    }
 
+    removeButton.onclick = function(){
+      listGroup.innerHTML = "";
+      self.remove();
+    }
+    completeButton.onclick = function(){
+      listGroup.innerHTML = "";
+      self.complete();
+    }
     editButton.onclick = function(){
+      listGroup.innerHTML = "";
+      object.content = editInput.value;
       self.edit();
     }
+
+
+    // console.log(taskArr[0].content);
   }
-
-  
-  
-
-
-  
 }
-
-
-//Edit task
-//     editButton.onclick = function(){
-//       item.editing = !item.editing;
-//       item.content = editInput.value;
-//       remboRender();
-//     }
-
-
-var someItem = new ListItem(taskArr[0]);
-
-someItem.render();
-// someItem.edit();
